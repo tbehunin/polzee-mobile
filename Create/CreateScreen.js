@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, TextInput } from 'react-native';
+import Choices from './Choices';
 
 class CreateScreen extends React.Component {
   constructor(props) {
@@ -19,7 +20,7 @@ class CreateScreen extends React.Component {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <TextInput placeholder="What do you want to ask?" onChangeText={this.handleChangeText} />
-        <Text>{this.state.question}</Text>
+        <Choices question={this.state.question} />
       </View>);
   }
 }
