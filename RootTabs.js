@@ -3,7 +3,7 @@ import { TabNavigator } from 'react-navigation'; // 1.0.0-beta.14
 import Ionicons from 'react-native-vector-icons/Ionicons'; // 4.4.2
 import FeedScreen from './FeedScreen';
 import ExploreScreen from './ExploreScreen';
-import CreateScreen from './CreateScreen';
+import CreateScreen from './Create/CreateScreen';
 import ProfileScreen from './ProfileScreen';
 
 const RootTabs = TabNavigator({
