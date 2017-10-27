@@ -22,7 +22,7 @@ class CreateScreen extends React.Component {
       <View>
         <StatusBarBackground style={{backgroundColor:'green'}}/>
         <TextInput style={{fontSize: 20}} placeholder="What do you want to ask?" textAlign="center" onChangeText={this.handleChangeText} />
-        <Choices question={this.state.question} />
+        {this.state.question.length > 0 ? <Choices question={this.state.question} /> : null}
       </View>);
   }
 }

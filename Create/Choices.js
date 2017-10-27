@@ -53,19 +53,19 @@ class Choices extends React.Component {
             //     </View> 
                 
             // </View> : null);
-            this.props.question.length > 0 ?
-                <View style={{flexDirection: 'row'}}>
-                    <View style={{flex: 2}}>
-                        <TextInput style={{fontSize: 20}}
-                            textAlign="center"
-                            placeholder={this.getPlaceholderText()}
-                            value={this.state.newChoice}
-                            onChangeText={this.handleNewChoiceChange} />
-                    </View>
-                    <View style={{flex: 1}}>
-                        {this.state.newChoice.length > 0 && !this.isDupe(this.state.newChoice) ? <Button title="Add" onPress={this.handleNewChoice} /> : null}
-                    </View>
-                </View> : null); 
+            <View style={{flexDirection: 'row'}}>
+                <View style={{flex: 2}}>
+                    <TextInput style={{fontSize: 20}}
+                        textAlign="center"
+                        placeholder={this.getPlaceholderText()}
+                        value={this.state.newChoice}
+                        onChangeText={this.handleNewChoiceChange} />
+                </View>
+                <View style={{flex: 1}}>
+                    {this.state.newChoice.length > 0 && !this.isDupe(this.state.newChoice) ? <Button title="Add" onPress={this.handleNewChoice} /> : null}
+                </View>
+            </View>
+        ); 
             // <View style={{backgroundColor: 'pink'}}>
         // <Text style={{backgroundColor: 'pink'}}>hello World</Text>);
             // </View>);
