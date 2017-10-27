@@ -21,7 +21,7 @@ class CreateScreen extends React.Component {
     return (
       <View>
         <StatusBarBackground />
-        <TextInput style={{fontSize: 20}} placeholder="What do you want to ask?" textAlign="center" onChangeText={this.handleChangeText} />
+        <TextInput style={{fontSize: 20, padding: 20}} placeholder="What do you want to ask?" textAlign="center" onChangeText={this.handleChangeText} />
         {this.state.question.length > 0 ? <Choices question={this.state.question} /> : null}
       </View>);
   }

@@ -43,10 +43,11 @@ class Choices extends React.Component {
                     <View>
                         <FlatList data={this.state.choices} keyExtractor={item => item.id} renderItem={({item}) =>
                             <View style={{flexDirection: 'row'}}>
-                                <View style={{flex: 2}}>
-                                    <TextInput style={{fontSize: 20}}
-                                        textAlign="center"
-                                        value={item.text} />
+                                <View style={{flex: 1}}>
+                                    <Button title="Favorite" />
+                                </View>
+                                <View style={{flex: 2, justifyContent: 'center'}}>
+                                    <Text style={{fontSize: 20}}>{item.text}</Text>
                                 </View>
                                 <View style={{flex: 1}}>
                                     <Button title="Delete" />
