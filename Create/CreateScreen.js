@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, TextInput } from 'react-native';
+import StatusBarBackground from '../StatusBarBackground';
 import Choices from './Choices';
 
 class CreateScreen extends React.Component {
@@ -18,8 +19,9 @@ class CreateScreen extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <TextInput placeholder="What do you want to ask?" onChangeText={this.handleChangeText} />
+      <View>
+        <StatusBarBackground style={{backgroundColor:'green'}}/>
+        <TextInput style={{fontSize: 20}} placeholder="What do you want to ask?" textAlign="center" onChangeText={this.handleChangeText} />
         <Choices question={this.state.question} />
       </View>);
   }
