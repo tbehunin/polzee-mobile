@@ -14,6 +14,7 @@ class Choices extends React.Component {
         this.isDupe = this.isDupe.bind(this);
         this.handleDeleteChoice = this.handleDeleteChoice.bind(this);
         this.handleContinue = this.handleContinue.bind(this);
+        this.toggleFavorite = this.toggleFavorite.bind(this);
     }
   
     handleNewChoiceChange(text) {
@@ -24,7 +25,7 @@ class Choices extends React.Component {
         const nc = this.state.newChoice;
         if (!this.isDupe(nc)) {
             this.setState({
-                choices: this.state.choices.concat([{id: Date().valueOf(), text: nc}]),
+                choices: this.state.choices.concat([{id: Date().valueOf(), text: nc, favorite: false}]),
                 newChoice: ''
             });
         }
@@ -48,6 +49,13 @@ class Choices extends React.Component {
         this.setState({choices: []});
     }
 
+    toggleFavorite(event, choice) {
+        let arr = this.state.choices.slice();
+        const idx = arr.findIndex((item) => item.id === choice.id);
+        arr[idx].favorite = !arr[idx].favorite;
+        this.setState({choices: arr});
+    }
+
     render() {
         return (
             <View>
@@ -56,7 +64,7 @@ class Choices extends React.Component {
                         <FlatList data={this.state.choices} keyExtractor={item => item.id} renderItem={({item}) =>
                             <View style={{flexDirection: 'row'}}>
                                 <View style={{flex: 1}}>
-                                    <Button title="Favorite" onPress={this.handleDeleteChoice} />
+                                    <Button title={item.favorite ? "Unfavorite" : "Favorite"} onPress={(event) => this.toggleFavorite(event, item)} />
                                 </View>
                                 <View style={{flex: 2, justifyContent: 'center'}}>
                                     <Text style={{fontSize: 20}}>{item.text}</Text>
