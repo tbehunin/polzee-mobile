@@ -13,6 +13,7 @@ class Choices extends React.Component {
         this.getPlaceholderText = this.getPlaceholderText.bind(this);
         this.isDupe = this.isDupe.bind(this);
         this.handleDeleteChoice = this.handleDeleteChoice.bind(this);
+        this.handleContinue = this.handleContinue.bind(this);
     }
   
     handleNewChoiceChange(text) {
@@ -41,6 +42,10 @@ class Choices extends React.Component {
         let arr = this.state.choices.slice();
         arr.splice(arr.findIndex((item) => item.id === choice.id), 1);
         this.setState({choices: arr});
+    }
+
+    handleContinue() {
+        this.setState({choices: []});
     }
 
     render() {
@@ -74,6 +79,9 @@ class Choices extends React.Component {
                     <View style={{flex: 1}}>
                         {this.state.newChoice.length > 0 && !this.isDupe(this.state.newChoice) ? <Button title="Add" onPress={this.handleNewChoice} /> : null}
                     </View>
+                </View>
+                <View>
+                    {this.state.choices.length >= 2 ? <Button title="Continue" onPress={this.handleContinue} /> : null}
                 </View>
             </View>
         );
