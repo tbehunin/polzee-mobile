@@ -11,7 +11,7 @@ class Choices extends React.Component {
         this.handleNewChoiceChange = this.handleNewChoiceChange.bind(this);
         this.handleNewChoice = this.handleNewChoice.bind(this);
         this.getPlaceholderText = this.getPlaceholderText.bind(this);
-        this.isDupe = this.isDupe.bind(this);
+        this.canAddChoice = this.canAddChoice.bind(this);
         this.handleDeleteChoice = this.handleDeleteChoice.bind(this);
         this.handleContinue = this.handleContinue.bind(this);
         this.toggleFavorite = this.toggleFavorite.bind(this);
@@ -22,10 +22,9 @@ class Choices extends React.Component {
     }
 
     handleNewChoice() {
-        const nc = this.state.newChoice;
-        if (!this.isDupe(nc)) {
+        if (this.canAddChoice()) {
             this.setState({
-                choices: this.state.choices.concat([{id: Date().valueOf(), text: nc, favorite: false}]),
+                choices: this.state.choices.concat([{id: Date().valueOf(), text: this.state.newChoice.trim(), favorite: false}]),
                 newChoice: ''
             });
         }
@@ -35,8 +34,9 @@ class Choices extends React.Component {
         return 'Choice ' + (this.state.choices.length + 1);
     }
 
-    isDupe(text) {
-        return this.state.choices.some((item) => item.text.toLowerCase() === text.toLowerCase());
+    canAddChoice() {
+        const choiceText = this.state.newChoice.trim();
+        return choiceText !== '' && !this.state.choices.some((item) => item.text.toLowerCase() === choiceText.toLowerCase());
     }
 
     handleDeleteChoice(event, choice) {
@@ -46,6 +46,7 @@ class Choices extends React.Component {
     }
 
     handleContinue() {
+        this.handleNewChoice(); // just in case they press continue before adding
         this.setState({choices: []});
     }
 
@@ -85,7 +86,7 @@ class Choices extends React.Component {
                             onChangeText={this.handleNewChoiceChange} />
                     </View>
                     <View style={{flex: 1}}>
-                        {this.state.newChoice.length > 0 && !this.isDupe(this.state.newChoice) ? <Button title="Add" onPress={this.handleNewChoice} /> : null}
+                        {this.canAddChoice() ? <Button title="Add" onPress={this.handleNewChoice} /> : null}
                     </View>
                 </View>
                 <View>
