@@ -12,6 +12,7 @@ class Choices extends React.Component {
         this.handleNewChoice = this.handleNewChoice.bind(this);
         this.getPlaceholderText = this.getPlaceholderText.bind(this);
         this.isDupe = this.isDupe.bind(this);
+        this.handleDeleteChoice = this.handleDeleteChoice.bind(this);
     }
   
     handleNewChoiceChange(text) {
@@ -22,7 +23,7 @@ class Choices extends React.Component {
         const nc = this.state.newChoice;
         if (!this.isDupe(nc)) {
             this.setState({
-                choices: this.state.choices.concat([{id: this.state.choices.length, text: nc}]),
+                choices: this.state.choices.concat([{id: Date().valueOf(), text: nc}]),
                 newChoice: ''
             });
         }
@@ -36,6 +37,12 @@ class Choices extends React.Component {
         return this.state.choices.some((item) => item.text.toLowerCase() === text.toLowerCase());
     }
 
+    handleDeleteChoice(event, choice) {
+        let arr = this.state.choices.slice();
+        arr.splice(arr.findIndex((item) => item.id === choice.id), 1);
+        this.setState({choices: arr});
+    }
+
     render() {
         return (
             <View>
@@ -44,13 +51,13 @@ class Choices extends React.Component {
                         <FlatList data={this.state.choices} keyExtractor={item => item.id} renderItem={({item}) =>
                             <View style={{flexDirection: 'row'}}>
                                 <View style={{flex: 1}}>
-                                    <Button title="Favorite" />
+                                    <Button title="Favorite" onPress={this.handleDeleteChoice} />
                                 </View>
                                 <View style={{flex: 2, justifyContent: 'center'}}>
                                     <Text style={{fontSize: 20}}>{item.text}</Text>
                                 </View>
                                 <View style={{flex: 1}}>
-                                    <Button title="Delete" />
+                                    <Button title="Delete" onPress={(event) => this.handleDeleteChoice(event, item)} />
                                 </View>
                             </View>
                         }/>
