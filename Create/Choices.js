@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, TextInput, Button, FlatList } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class Choices extends React.Component {
     constructor(props) {
@@ -64,33 +65,39 @@ class Choices extends React.Component {
                     <View>
                         <FlatList data={this.state.choices} keyExtractor={item => item.id} renderItem={({item}) =>
                             <View style={{flexDirection: 'row'}}>
-                                <View style={{flex: 1}}>
-                                    <Button title={item.favorite ? "Unfavorite" : "Favorite"} onPress={(event) => this.toggleFavorite(event, item)} />
+                                <View style={{flex: 1, alignItems: 'center'}}>
+                                    {item.favorite ?
+                                        <Icon.Button name="star" backgroundColor="transparent" size={30} onPress={(event) => this.toggleFavorite(event, item)} color="orange" /> :
+                                        <Icon.Button name="star-o" backgroundColor="transparent" size={30} onPress={(event) => this.toggleFavorite(event, item)} color="orange" />
+                                    }
                                 </View>
                                 <View style={{flex: 2, justifyContent: 'center'}}>
                                     <Text style={{fontSize: 20}}>{item.text}</Text>
                                 </View>
-                                <View style={{flex: 1}}>
-                                    <Button title="Delete" onPress={(event) => this.handleDeleteChoice(event, item)} />
+                                <View style={{flex: 1, alignItems: 'center'}}>
+                                    <Icon.Button name="trash" backgroundColor="transparent" size={30} onPress={(event) => this.handleDeleteChoice(event, item)} color="tomato" />
                                 </View>
                             </View>
                         }/>
                     </View> : null
                 }
                 <View style={{flexDirection: 'row'}}>
-                    <View style={{flex: 2}}>
+                    <View style={{flex: 2, padding: 10}}>
                         <TextInput style={{fontSize: 20}}
                             textAlign="center"
                             placeholder={this.getPlaceholderText()}
                             value={this.state.newChoice}
                             onChangeText={this.handleNewChoiceChange} />
                     </View>
-                    <View style={{flex: 1}}>
-                        {this.canAddChoice() ? <Button title="Add" onPress={this.handleNewChoice} /> : null}
+                    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                        {this.canAddChoice() ?
+                            <Icon.Button name="floppy-o" backgroundColor="transparent" size={30} onPress={this.handleNewChoice} color="steelblue" /> : null}
                     </View>
                 </View>
                 <View>
-                    {this.state.choices.length >= 2 ? <Button title="Continue" onPress={this.handleContinue} /> : null}
+                    {this.state.choices.length >= 2 ?
+                        <Button title="Continue" onPress={this.handleContinue} />
+                         : null}
                 </View>
             </View>
         );
