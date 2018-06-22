@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
-import * as fooReducer from './fooReducer';
+import cognito from './cognito';
+import create from './create';
 
-export default combineReducers(Object.assign(
-    fooReducer,
-));
+export default combineReducers({
+    cognito,
+    create,
+});

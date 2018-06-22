@@ -1,36 +1,37 @@
-import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { ActionCreators } from '../actions';
-import RootTabs from '../../RootTabs';
+import { View, StyleSheet } from 'react-native';
+import Home from '../components/Home';
+import CognitoAuth, { providerImage } from './CognitoAuth';
+import { logOut } from '../actions/cognito/actions';
 
-class AppContainer extends Component {
-    constructor(props) {
-        super(props);
-    }
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+    },
+});
 
-    addRecipe() {
-        this.props.addRecipe();
-    }
+const AppContainer = ({ authState, onLogOut }) => (
+    <View style={styles.container}>
+        {authState === 'authenticated' ?
+            <Home providerImage={providerImage} onLogOut={onLogOut} /> :
+            <CognitoAuth />
+        }
+    </View>
+);
 
-    render() {
-        return <View>
-            <Text style={{marginTop: 20}}>
-                I am app container! Recipe count: {this.props.recipeCount}
-            </Text>
-            <Button title="click me" onPress={() => {this.addRecipe()}} />
-        </View>;
-        // return <RootTabs />;
-    }
-}
+AppContainer.propTypes = {
+    authState: PropTypes.string.isRequired,
+    onLogOut: PropTypes.func.isRequired,
+};
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(ActionCreators, dispatch);
-}
+const mapStateToProps = state => ({
+    authState: state.cognito.authState,
+});
+const mapDispatchToProps = dispatch => ({
+    onLogOut: () => dispatch(logOut()),
+});
 
-export default connect((state) => {
-    return {
-        recipeCount: state.recipeCount
-    };
-}, mapDispatchToProps)(AppContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);
