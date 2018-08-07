@@ -24,7 +24,7 @@ features:
             min-length: '8'
             require-lower-case: true
             require-numbers: true
-            require-symbols: true
+            require-symbols: false
             require-upper-case: true
 name: polzee-mobile-2018-08-06-22-05-56
 region: us-west-1
