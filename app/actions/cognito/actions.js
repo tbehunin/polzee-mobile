@@ -1,7 +1,4 @@
-import Amplify, { Auth } from 'aws-amplify';
-import config from './amplifyConfig';
-
-Amplify.configure(config);
+import { Auth } from 'aws-amplify';
 
 export const login = payload => (dispatch) => {
     Auth.signIn(payload.username, payload.password)
@@ -12,9 +9,11 @@ export const login = payload => (dispatch) => {
 };
 export const createAccount = payload => (dispatch) => {
     Auth.signUp({
-        username: payload.username,
+        username: payload.username.replace('@', '_'),
         password: payload.password,
-        attributes: {},
+        attributes: {
+            email: payload.username,
+        },
     })
         .then(
             response => dispatch({ type: 'COGNITO_CREATE_ACCOUNT_SUCCESS', payload: response }),

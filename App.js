@@ -3,8 +3,12 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
+import Amplify from 'aws-amplify';
 import reducer from './app/reducers';
 import AppContainer from './app/containers/AppContainer';
+import config from './aws-exports';
+
+Amplify.configure(config);
 
 const loggerMiddleware = createLogger({ predicate: () => __DEV__ });
 
